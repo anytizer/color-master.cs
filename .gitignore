@@ -2,3 +2,4 @@
 /src/color-master/bin
 /src/color-master/colormaster.csproj.user
 /src/.vs
+/src/color-master/Properties/PublishProfiles/*.user
