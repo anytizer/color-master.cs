@@ -16,7 +16,7 @@ namespace colormaster
             this.trackBar1.Maximum = 255;
             this.trackBar1.Minimum = 0;
             this.trackBar1.TickFrequency = steps;
-            this.trackBar1.LargeChange= steps * 16;
+            this.trackBar1.LargeChange = steps * 16;
             this.trackBar1.SmallChange = steps * 4;
             this.trackBar1.TickStyle = TickStyle.None;
 
@@ -33,6 +33,16 @@ namespace colormaster
             this.trackBar3.LargeChange = steps * 16;
             this.trackBar3.SmallChange = steps * 4;
             this.trackBar3.TickStyle = TickStyle.None;
+
+            this.numericUpDown1.Increment = 1;
+            this.numericUpDown1.Maximum = 15;
+            this.numericUpDown1.Minimum = 0;
+            this.numericUpDown1.Value = 10;
+            this.numericUpDown1.DecimalPlaces = 0;
+            this.numericUpDown1.ThousandsSeparator = false;
+            this.numericUpDown1.Hexadecimal = false;
+
+            this.Cursor = Cursors.Hand;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -64,12 +74,13 @@ namespace colormaster
         private string hexvalue(int integer)
         {
             string value = string.Format("{0:X}", integer.ToString("X"));
-            if(value.Length == 1) value = "0" + value;
+            if (value.Length == 1) value = "0" + value;
 
             return value;
         }
 
-        private string hexacolors() {
+        private string hexacolors()
+        {
             string hexa = string.Format("#{0}{1}{2}", this.hexvalue(this.trackBar1.Value), this.hexvalue(this.trackBar2.Value), this.hexvalue(this.trackBar3.Value));
             return hexa;
         }
@@ -139,5 +150,42 @@ namespace colormaster
             return value;
         }
 
+        private void label2_Click(object sender, EventArgs e)
+        {
+            this.steps(-Convert.ToInt32(numericUpDown1.Value));
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            this.steps(+Convert.ToInt32(numericUpDown1.Value));
+        }
+
+        private void steps(int steps)
+        {
+            int red = this.trackBar1.Value + steps;
+            int green = this.trackBar2.Value + steps;
+            int blue = this.trackBar3.Value + steps;
+
+            if (red <= this.trackBar1.Minimum) red = this.trackBar1.Minimum;
+            if (blue <= this.trackBar2.Minimum) blue = this.trackBar2.Minimum;
+            if (green <= this.trackBar3.Minimum) green = this.trackBar3.Minimum;
+
+
+            if (red >= this.trackBar1.Maximum) red = this.trackBar1.Maximum;
+            if (blue >= this.trackBar2.Maximum) blue = this.trackBar2.Maximum;
+            if (green >= this.trackBar3.Maximum) green = this.trackBar3.Maximum;
+
+            this.trackBar1.Value = red;
+            this.trackBar2.Value = green;
+            this.trackBar3.Value = blue;
+
+            this.adjust();
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+           if(this.numericUpDown1.Value >= 15) this.numericUpDown1.Value = 15;
+           if(this.numericUpDown1.Value <= 0) this.numericUpDown1.Value = 0;
+        }
     }
 }
