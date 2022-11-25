@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Windows.Forms.VisualStyles;
 
 namespace colormaster
 {
@@ -15,34 +16,28 @@ namespace colormaster
             this.trackBar1.Maximum = 255;
             this.trackBar1.Minimum = 0;
             this.trackBar1.TickFrequency = steps;
-            this.trackBar1.LargeChange= steps;
-            this.trackBar1.SmallChange = steps;
+            this.trackBar1.LargeChange= steps * 16;
+            this.trackBar1.SmallChange = steps * 4;
+            this.trackBar1.TickStyle = TickStyle.None;
 
             this.trackBar2.Maximum = 255;
             this.trackBar2.Minimum = 0;
             this.trackBar2.TickFrequency = steps;
-            this.trackBar2.LargeChange = steps;
-            this.trackBar2.SmallChange = steps;
+            this.trackBar2.LargeChange = steps * 16;
+            this.trackBar2.SmallChange = steps * 4;
+            this.trackBar2.TickStyle = TickStyle.None;
 
             this.trackBar3.Maximum = 255;
             this.trackBar3.Minimum = 0;
             this.trackBar3.TickFrequency = steps;
-            this.trackBar3.LargeChange = steps;
-            this.trackBar3.SmallChange = steps;
+            this.trackBar3.LargeChange = steps * 16;
+            this.trackBar3.SmallChange = steps * 4;
+            this.trackBar3.TickStyle = TickStyle.None;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.trackBar1.TickStyle = TickStyle.None;
-            this.trackBar2.TickStyle = TickStyle.None;
-            this.trackBar3.TickStyle = TickStyle.None; //.Both;
-
-            this.trackBar1.Value = 127;
-            this.trackBar2.Value = 127;
-            this.trackBar3.Value = 127;
-
             this.target = this.button4;
-
             this.adjust();
         }
 
@@ -63,7 +58,7 @@ namespace colormaster
 
             this.target.BackColor = Color.FromArgb(this.trackBar1.Value, this.trackBar2.Value, this.trackBar3.Value);
             this.target.ForeColor = Color.FromArgb(this.button4.BackColor.ToArgb() ^ 0XFFFFFF);
-            this.label1.Text = hexacolors();
+            this.label1.Text = this.hexacolors();
         }
 
         private string hexvalue(int integer)
@@ -102,34 +97,47 @@ namespace colormaster
         private void button4_Click(object sender, EventArgs e)
         {
             this.target = this.button4;
-            this.update_background();
+            this.update_sliders(this.button4.BackColor);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             this.target = this.button5;
-            this.update_foreground();
-        }
-
-
-        private void update_background()
-        {
-            this.update_sliders(this.button4.BackColor);
-        }
-
-        private void update_foreground()
-        {
             this.update_sliders(this.button5.BackColor);
         }
 
         private void update_sliders(Color color)
         {
-            //
             this.trackBar1.Value = color.R;
             this.trackBar2.Value = color.G;
             this.trackBar3.Value = color.B;
 
             this.adjust();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.trackBar1.Value = this.get_random_hex();
+            this.adjust();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.trackBar2.Value = this.get_random_hex();
+            this.adjust();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.trackBar3.Value = this.get_random_hex();
+            this.adjust();
+        }
+
+        private int get_random_hex()
+        {
+            int value = new Random().Next(0, 255);
+            return value;
+        }
+
     }
 }
