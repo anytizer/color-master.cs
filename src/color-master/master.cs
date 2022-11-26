@@ -1,17 +1,20 @@
+using System.Diagnostics;
 using System.Drawing;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
 namespace colormaster
 {
     public partial class master : Form
     {
-        private Button target;
+        private Button target_active;
+        //private Button target_inactive;
 
         public master()
         {
             InitializeComponent();
 
-            int steps = 1;
+            int steps = 2;
 
             this.trackBar1.Maximum = 255;
             this.trackBar1.Minimum = 0;
@@ -19,6 +22,7 @@ namespace colormaster
             this.trackBar1.LargeChange = steps * 16;
             this.trackBar1.SmallChange = steps * 4;
             this.trackBar1.TickStyle = TickStyle.None;
+            //this.trackBar1.BackColor = Color.Red;
 
             this.trackBar2.Maximum = 255;
             this.trackBar2.Minimum = 0;
@@ -26,6 +30,7 @@ namespace colormaster
             this.trackBar2.LargeChange = steps * 16;
             this.trackBar2.SmallChange = steps * 4;
             this.trackBar2.TickStyle = TickStyle.None;
+            //this.trackBar2.BackColor = Color.Green;
 
             this.trackBar3.Maximum = 255;
             this.trackBar3.Minimum = 0;
@@ -33,21 +38,31 @@ namespace colormaster
             this.trackBar3.LargeChange = steps * 16;
             this.trackBar3.SmallChange = steps * 4;
             this.trackBar3.TickStyle = TickStyle.None;
+            //this.trackBar3.BackColor = Color.Blue;
+
+            this.button4.BackColor = Color.Black;
+            this.button5.BackColor = Color.Black;
 
             this.numericUpDown1.Increment = 1;
             this.numericUpDown1.Maximum = 15;
-            this.numericUpDown1.Minimum = 0;
-            this.numericUpDown1.Value = 10;
+            this.numericUpDown1.Minimum = 1; // to start from 0 - 15
+            this.numericUpDown1.Value = 15;
             this.numericUpDown1.DecimalPlaces = 0;
             this.numericUpDown1.ThousandsSeparator = false;
             this.numericUpDown1.Hexadecimal = false;
 
-            this.Cursor = Cursors.Hand;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.target = this.button4;
+            this.button4.Text = string.Empty;
+            this.button5.Text = string.Empty;
+            //this.button6.Text = string.Empty; // Random()
+
+            this.Cursor = Cursors.Hand;
+            
+            this.target_active = this.button4;
+            //this.target_inactive = this.button5;
             this.adjust();
         }
 
@@ -66,12 +81,24 @@ namespace colormaster
             this.button2.Text = this.trackBar2.Value.ToString();
             this.button3.Text = this.trackBar3.Value.ToString();
 
-            this.target.BackColor = Color.FromArgb(this.trackBar1.Value, this.trackBar2.Value, this.trackBar3.Value);
-            this.target.ForeColor = Color.FromArgb(this.button4.BackColor.ToArgb() ^ 0XFFFFFF);
-            this.label1.Text = this.hexacolors();
+            this.target_active.BackColor = Color.FromArgb(this.trackBar1.Value, this.trackBar2.Value, this.trackBar3.Value);
+            this.target_active.ForeColor = Color.FromArgb(this.button4.BackColor.ToArgb() ^ 0XFFFFFF);
+            this.label1.Text = this.hex_colors();
+            
+            // optional
+            if(this.checkBox1.Checked)
+            {
+                this.label1.ForeColor = button5.BackColor;
+                this.label1.BackColor = button4.BackColor;
+            }
+            else
+            {
+                this.label1.ForeColor = Color.Black;
+                this.label1.BackColor = Color.Transparent;
+            }
         }
 
-        private string hexvalue(int integer)
+        private string hex(int integer)
         {
             string value = string.Format("{0:X}", integer.ToString("X"));
             if (value.Length == 1) value = "0" + value;
@@ -79,9 +106,9 @@ namespace colormaster
             return value;
         }
 
-        private string hexacolors()
+        private string hex_colors()
         {
-            string hexa = string.Format("#{0}{1}{2}", this.hexvalue(this.trackBar1.Value), this.hexvalue(this.trackBar2.Value), this.hexvalue(this.trackBar3.Value));
+            string hexa = string.Format("#{0}{1}{2}", this.hex(this.trackBar1.Value), this.hex(this.trackBar2.Value), this.hex(this.trackBar3.Value));
             return hexa;
         }
 
@@ -107,14 +134,16 @@ namespace colormaster
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.target = this.button4;
+            this.target_active = this.button4;
             this.update_sliders(this.button4.BackColor);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            this.target = this.button5;
+            this.target_active = this.button5;
             this.update_sliders(this.button5.BackColor);
+
+            this.target_active.BackColor = this.button5.BackColor;
         }
 
         private void update_sliders(Color color)
@@ -128,23 +157,23 @@ namespace colormaster
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.trackBar1.Value = this.get_random_hex();
+            this.trackBar1.Value = this.get_random_color_value();
             this.adjust();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.trackBar2.Value = this.get_random_hex();
+            this.trackBar2.Value = this.get_random_color_value();
             this.adjust();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.trackBar3.Value = this.get_random_hex();
+            this.trackBar3.Value = this.get_random_color_value();
             this.adjust();
         }
 
-        private int get_random_hex()
+        private int get_random_color_value()
         {
             int value = new Random().Next(0, 255);
             return value;
@@ -186,6 +215,67 @@ namespace colormaster
         {
            if(this.numericUpDown1.Value >= 15) this.numericUpDown1.Value = 15;
            if(this.numericUpDown1.Value <= 0) this.numericUpDown1.Value = 0;
+        }
+
+        private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            alwaysOnTopToolStripMenuItem.Checked = !alwaysOnTopToolStripMenuItem.Checked;
+            this.TopMost = alwaysOnTopToolStripMenuItem.Checked;
+        }
+
+
+        private string bgcolor()
+        {
+            string hexa = string.Format("#{0}{1}{2}", this.hex(this.button4.BackColor.R), this.hex(this.button4.BackColor.G), this.hex(this.button4.BackColor.B));
+            return hexa;
+        }
+
+        private void projectSourceCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string url = "https://github.com/anytizer/color-master.cs/";
+            try
+            {
+                Process opener = new Process();
+                opener.StartInfo.UseShellExecute = true;
+                opener.StartInfo.FileName = url;
+                opener.Start();
+            } catch (Exception ex)
+            {
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // randomize colors
+            int bk_red = this.get_random_color_value();
+            int bk_green = this.get_random_color_value();
+            int bk_blue = this.get_random_color_value();
+
+            this.trackBar1.Value = bk_red;
+            this.trackBar2.Value = bk_green;
+            this.trackBar3.Value = bk_blue;
+
+            // inactive one; if background is active, apply to foreground
+            //int fc_red= this.get_random_color_value();
+            //int fc_green = this.get_random_color_value();
+            //int fc_blue = this.get_random_color_value();
+
+            this.adjust();
+        }
+
+        private void copyColorCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(this.label1.Text);
+        }
+
+        private void copyFullCSSToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(string.Format(".element {{ color: {0}; background-color: {1}; }}", this.label1.Text, this.bgcolor()));
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.adjust();
         }
     }
 }
