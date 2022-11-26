@@ -10,8 +10,4 @@
     <AssemblyName>Colorr Master</AssemblyName>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="colormaster.ico" />
-  </ItemGroup>
-
 </Project>
