@@ -14,6 +14,28 @@ namespace colormaster
         {
             InitializeComponent();
 
+            this.defaults();
+            this.set_tooltips();
+        }
+
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.button4.Text = string.Empty;
+            this.button5.Text = string.Empty;
+            //this.button6.Text = string.Empty; // Random()
+            
+
+            this.Cursor = Cursors.Hand;
+            
+            this.target_active = this.button4;
+            //this.target_inactive = this.button5;
+            this.adjust();
+        }
+
+        private void defaults()
+        {
             int steps = 2;
 
             this.trackBar1.Maximum = 255;
@@ -43,27 +65,26 @@ namespace colormaster
             this.button4.BackColor = Color.Black;
             this.button5.BackColor = Color.Black;
 
-            this.numericUpDown1.Increment = 1;
-            this.numericUpDown1.Maximum = 15;
-            this.numericUpDown1.Minimum = 1; // to start from 0 - 15
-            this.numericUpDown1.Value = 15;
+            this.numericUpDown1.Increment = 5;
+            this.numericUpDown1.Maximum = 30;
+            this.numericUpDown1.Minimum = 5; // to start from 5 - 30
+            this.numericUpDown1.Value = 30;
             this.numericUpDown1.DecimalPlaces = 0;
             this.numericUpDown1.ThousandsSeparator = false;
             this.numericUpDown1.Hexadecimal = false;
-
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void set_tooltips()
         {
-            this.button4.Text = string.Empty;
-            this.button5.Text = string.Empty;
-            //this.button6.Text = string.Empty; // Random()
-
-            this.Cursor = Cursors.Hand;
-            
-            this.target_active = this.button4;
-            //this.target_inactive = this.button5;
-            this.adjust();
+            this.toolTip1.SetToolTip(this.checkBox1, "Live preview with your selected colors");
+            this.toolTip1.SetToolTip(this.button1, "Red component randomizer");
+            this.toolTip1.SetToolTip(this.button2, "Green component randomizer");
+            this.toolTip1.SetToolTip(this.button3, "Blue component randomizer");
+            this.toolTip1.SetToolTip(this.button4, "Click to activate Background");
+            this.toolTip1.SetToolTip(this.button5, "Click to activate Foreground");
+            this.toolTip1.SetToolTip(this.label1, "Click to copy color code");
+            this.toolTip1.SetToolTip(this.label2, "Step down all colors");
+            this.toolTip1.SetToolTip(this.label3, "Step up all colors");
         }
 
         private void adjust()
@@ -213,8 +234,8 @@ namespace colormaster
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-           if(this.numericUpDown1.Value >= 15) this.numericUpDown1.Value = 15;
-           if(this.numericUpDown1.Value <= 0) this.numericUpDown1.Value = 0;
+           if(this.numericUpDown1.Value >= this.numericUpDown1.Maximum) this.numericUpDown1.Value = this.numericUpDown1.Maximum;
+           if(this.numericUpDown1.Value <= this.numericUpDown1.Minimum) this.numericUpDown1.Value = this.numericUpDown1.Minimum;
         }
 
         private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -232,16 +253,7 @@ namespace colormaster
 
         private void projectSourceCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string url = "https://github.com/anytizer/color-master.cs/";
-            try
-            {
-                Process opener = new Process();
-                opener.StartInfo.UseShellExecute = true;
-                opener.StartInfo.FileName = url;
-                opener.Start();
-            } catch (Exception ex)
-            {
-            }
+            this.help()
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -276,6 +288,26 @@ namespace colormaster
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             this.adjust();
+        }
+
+        private void requestAFeatureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.help();
+        }
+
+        private void help()
+        {
+            string url = "https://github.com/anytizer/color-master.cs/";
+            try
+            {
+                Process opener = new Process();
+                opener.StartInfo.UseShellExecute = true;
+                opener.StartInfo.FileName = url;
+                opener.Start();
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }

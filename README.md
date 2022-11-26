@@ -1,7 +1,7 @@
 # color-master.cs
 Quickly choose 2 colors as foreground and background
 
-See how it works: https://youtu.be/k8H3c9asIqg (YouTube Video)
+See how it works: [https://youtu.be/k8H3c9asIqg](https://youtu.be/k8H3c9asIqg) (A concept video on YouTube)
 
 ![image](https://user-images.githubusercontent.com/5563341/203923336-24b8d41d-7fec-4382-9213-8f1e0d4f9df1.png)
 
@@ -19,3 +19,9 @@ Changes
 ![image](https://user-images.githubusercontent.com/5563341/204062124-22ff39a2-44d4-4b19-81c4-8d710239a971.png)
 
 Here, you can change the colors by uniform steps to all Red, Green, Blue values.
+
+
+## Data Collection
+
+This application does not collect any user data.
+It has a menu linked to open GitHub repository, in order to help users contact the developer. Just that.

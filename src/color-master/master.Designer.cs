@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(master));
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
@@ -44,6 +45,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.applicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableToolTipsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cSSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyColorCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyFullCSSToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +54,8 @@
             this.anytizerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button6 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.requestAFeatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -143,7 +147,7 @@
             // 
             this.button5.Location = new System.Drawing.Point(84, 105);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(180, 180);
+            this.button5.Size = new System.Drawing.Size(180, 186);
             this.button5.TabIndex = 12;
             this.button5.Text = "Profile";
             this.button5.UseVisualStyleBackColor = true;
@@ -153,7 +157,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(285, 240);
+            this.label2.Location = new System.Drawing.Point(270, 240);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 51);
             this.label2.TabIndex = 13;
@@ -164,7 +168,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(332, 240);
+            this.label3.Location = new System.Drawing.Point(317, 240);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 51);
             this.label3.TabIndex = 13;
@@ -174,7 +178,7 @@
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.numericUpDown1.Location = new System.Drawing.Point(300, 199);
+            this.numericUpDown1.Location = new System.Drawing.Point(283, 198);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             15,
             0,
@@ -205,7 +209,8 @@
             // applicationToolStripMenuItem
             // 
             this.applicationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.alwaysOnTopToolStripMenuItem});
+            this.alwaysOnTopToolStripMenuItem,
+            this.enableToolTipsToolStripMenuItem});
             this.applicationToolStripMenuItem.Name = "applicationToolStripMenuItem";
             this.applicationToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.applicationToolStripMenuItem.Text = "Application";
@@ -213,9 +218,15 @@
             // alwaysOnTopToolStripMenuItem
             // 
             this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.alwaysOnTopToolStripMenuItem.Text = "Always on Top";
             this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_Click);
+            // 
+            // enableToolTipsToolStripMenuItem
+            // 
+            this.enableToolTipsToolStripMenuItem.Name = "enableToolTipsToolStripMenuItem";
+            this.enableToolTipsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
+            this.enableToolTipsToolStripMenuItem.Text = "Enable Tool Tips";
             // 
             // cSSToolStripMenuItem
             // 
@@ -243,8 +254,9 @@
             // contactToolStripMenuItem
             // 
             this.contactToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.anytizerToolStripMenuItem,
             this.projectSourceCodeToolStripMenuItem,
-            this.anytizerToolStripMenuItem});
+            this.requestAFeatureToolStripMenuItem});
             this.contactToolStripMenuItem.Name = "contactToolStripMenuItem";
             this.contactToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.contactToolStripMenuItem.Text = "Contact";
@@ -268,21 +280,28 @@
             this.button6.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button6.Location = new System.Drawing.Point(10, 202);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(68, 83);
+            this.button6.Size = new System.Drawing.Size(68, 89);
             this.button6.TabIndex = 16;
-            this.button6.Text = "R";
+            this.button6.Text = "?";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(369, 199);
+            this.checkBox1.Location = new System.Drawing.Point(364, 240);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 17;
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // requestAFeatureToolStripMenuItem
+            // 
+            this.requestAFeatureToolStripMenuItem.Name = "requestAFeatureToolStripMenuItem";
+            this.requestAFeatureToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.requestAFeatureToolStripMenuItem.Text = "Request a Feature";
+            this.requestAFeatureToolStripMenuItem.Click += new System.EventHandler(this.requestAFeatureToolStripMenuItem_Click);
             // 
             // master
             // 
@@ -347,5 +366,8 @@
         private ToolStripMenuItem copyColorCodeToolStripMenuItem;
         private ToolStripMenuItem copyFullCSSToolStripMenuItem1;
         private CheckBox checkBox1;
+        private ToolTip toolTip1;
+        private ToolStripMenuItem enableToolTipsToolStripMenuItem;
+        private ToolStripMenuItem requestAFeatureToolStripMenuItem;
     }
 }
