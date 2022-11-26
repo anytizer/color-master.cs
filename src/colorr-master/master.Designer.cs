@@ -50,12 +50,12 @@
             this.copyColorCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyFullCSSToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contactToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.projectSourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.anytizerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.projectSourceCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.requestAFeatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button6 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.requestAFeatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -261,6 +261,12 @@
             this.contactToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.contactToolStripMenuItem.Text = "Contact";
             // 
+            // anytizerToolStripMenuItem
+            // 
+            this.anytizerToolStripMenuItem.Name = "anytizerToolStripMenuItem";
+            this.anytizerToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.anytizerToolStripMenuItem.Text = "@anytizer";
+            // 
             // projectSourceCodeToolStripMenuItem
             // 
             this.projectSourceCodeToolStripMenuItem.Name = "projectSourceCodeToolStripMenuItem";
@@ -268,11 +274,12 @@
             this.projectSourceCodeToolStripMenuItem.Text = "Project Source Code";
             this.projectSourceCodeToolStripMenuItem.Click += new System.EventHandler(this.projectSourceCodeToolStripMenuItem_Click);
             // 
-            // anytizerToolStripMenuItem
+            // requestAFeatureToolStripMenuItem
             // 
-            this.anytizerToolStripMenuItem.Name = "anytizerToolStripMenuItem";
-            this.anytizerToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.anytizerToolStripMenuItem.Text = "@anytizer";
+            this.requestAFeatureToolStripMenuItem.Name = "requestAFeatureToolStripMenuItem";
+            this.requestAFeatureToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.requestAFeatureToolStripMenuItem.Text = "Request a Feature";
+            this.requestAFeatureToolStripMenuItem.Click += new System.EventHandler(this.requestAFeatureToolStripMenuItem_Click);
             // 
             // button6
             // 
@@ -295,13 +302,6 @@
             this.checkBox1.TabIndex = 17;
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // requestAFeatureToolStripMenuItem
-            // 
-            this.requestAFeatureToolStripMenuItem.Name = "requestAFeatureToolStripMenuItem";
-            this.requestAFeatureToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.requestAFeatureToolStripMenuItem.Text = "Request a Feature";
-            this.requestAFeatureToolStripMenuItem.Click += new System.EventHandler(this.requestAFeatureToolStripMenuItem_Click);
             // 
             // master
             // 
@@ -329,7 +329,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "master";
-            this.Text = "Color Master";
+            this.Text = "Colorr Master";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
