@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33015.44
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "colormaster", "color-master\colormaster.csproj", "{806909E3-F175-4F71-85F1-4FFF73F9F84E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "colormaster", "colorr-master\colorr-master.csproj", "{806909E3-F175-4F71-85F1-4FFF73F9F84E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -253,7 +253,7 @@ namespace colormaster
 
         private void projectSourceCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.help()
+            this.help();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -297,7 +297,7 @@ namespace colormaster
 
         private void help()
         {
-            string url = "https://github.com/anytizer/color-master.cs/";
+            string url = "https://github.com/anytizer/colorr-master.cs/";
             try
             {
                 Process opener = new Process();

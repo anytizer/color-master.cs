@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>colormaster.ico</ApplicationIcon>
-    <AssemblyName>Color Master</AssemblyName>
+    <ApplicationIcon>colorr-master.ico</ApplicationIcon>
+    <AssemblyName>Colorr Master</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
