@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
-namespace colormaster
+namespace colorrmaster
 {
     public partial class master : Form
     {
@@ -17,8 +17,6 @@ namespace colormaster
             this.defaults();
             this.set_tooltips();
         }
-
-
 
         private void Form1_Load(object sender, EventArgs e)
         {

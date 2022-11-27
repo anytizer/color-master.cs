@@ -1,4 +1,4 @@
-namespace colormaster
+namespace colorrmaster
 {
     internal static class Program
     {
