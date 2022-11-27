@@ -15,7 +15,8 @@
     <RepositoryUrl>https://github.com/anytizer/colorr-master.cs</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <SignAssembly>False</SignAssembly>
-    <RootNamespace>$(MSBuildProjectName.Replace(" ", ""))</RootNamespace>
+    <RootNamespace>$(MSBuildProjectName.Replace("-", ""))</RootNamespace>
+    <StartupObject>colorrmaster.Program</StartupObject>
   </PropertyGroup>
 
 </Project>
