@@ -136,7 +136,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(388, 202);
+            this.label1.Location = new System.Drawing.Point(399, 202);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(294, 89);
             this.label1.TabIndex = 11;
@@ -286,9 +286,9 @@
             // 
             this.button6.BackColor = System.Drawing.Color.DarkOrange;
             this.button6.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button6.Location = new System.Drawing.Point(10, 202);
+            this.button6.Location = new System.Drawing.Point(10, 198);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(68, 89);
+            this.button6.Size = new System.Drawing.Size(68, 93);
             this.button6.TabIndex = 16;
             this.button6.Text = "?";
             this.button6.UseVisualStyleBackColor = false;
