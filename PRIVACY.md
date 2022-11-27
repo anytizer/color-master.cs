@@ -4,5 +4,5 @@ This application does not collect any user data by intent.
 
 It has a menu linked to open GitHub repository, in order to help users contact the developer:
 - to request a new feature
-- open an issue
-- submit bug
+- to open an issue
+- to submit a bug

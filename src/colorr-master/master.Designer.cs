@@ -266,6 +266,7 @@
             this.anytizerToolStripMenuItem.Name = "anytizerToolStripMenuItem";
             this.anytizerToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.anytizerToolStripMenuItem.Text = "@anytizer";
+            this.anytizerToolStripMenuItem.Click += new System.EventHandler(this.anytizerToolStripMenuItem_Click);
             // 
             // projectSourceCodeToolStripMenuItem
             // 

@@ -242,7 +242,6 @@ namespace colorrmaster
             this.TopMost = alwaysOnTopToolStripMenuItem.Checked;
         }
 
-
         private string bgcolor()
         {
             string hexa = string.Format("#{0}{1}{2}", this.hex(this.button4.BackColor.R), this.hex(this.button4.BackColor.G), this.hex(this.button4.BackColor.B));
@@ -295,17 +294,21 @@ namespace colorrmaster
 
         private void help()
         {
-            string url = "https://github.com/anytizer/colorr-master.cs/";
             try
             {
                 Process opener = new Process();
                 opener.StartInfo.UseShellExecute = true;
-                opener.StartInfo.FileName = url;
+                opener.StartInfo.FileName = Configurations.project_url;
                 opener.Start();
             }
             catch (Exception ex)
             {
             }
+        }
+
+        private void anytizerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

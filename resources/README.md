@@ -1,1 +1,1 @@
-Logo created using AAA Logo Maker.
+Logo created using AAA Logo Maker software.
