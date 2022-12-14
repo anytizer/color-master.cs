@@ -1,3 +1,3 @@
 # ToDo
 
-* Inform users that they need a .net framework.
+* Inform users that they need a desktop runtime .net 7 framework.

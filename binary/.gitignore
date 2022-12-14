@@ -1,4 +1,3 @@
-/Color Master.exe
-/Color Master.pdb
-/*.exe
-/*.pdb
+/publish
+/**/*.exe
+/**/*.pdb

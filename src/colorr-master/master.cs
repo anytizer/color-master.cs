@@ -1,38 +1,38 @@
 using System.Diagnostics;
-using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace colorrmaster
 {
-    public partial class master : Form
+    public partial class Master
     {
-        private Button target_active;
-        //private Button target_inactive;
+        private Button target_active = new();
+        //private bool animate = false;
+        private readonly Randomizer randomizer = new();
+        private readonly Hexculator hexculator = new();
+        private readonly Process opener = new();
 
-        public master()
+        public Master()
         {
             InitializeComponent();
 
-            this.defaults();
-            this.set_tooltips();
+            this.Defaults();
+            this.SetTooltips(true);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.button4.Text = string.Empty;
-            this.button5.Text = string.Empty;
+            this.backgroundButton.Text = string.Empty;
+            this.foregroundButton.Text = string.Empty;
             //this.button6.Text = string.Empty; // Random()
-            
 
             this.Cursor = Cursors.Hand;
-            
-            this.target_active = this.button4;
-            //this.target_inactive = this.button5;
-            this.adjust();
+
+            this.target_active = this.backgroundButton;
+            //this.target_inactive = this.foregroundButton;
+            this.AdjustEverything();
         }
 
-        private void defaults()
+        private void Defaults()
         {
             int steps = 2;
 
@@ -60,8 +60,8 @@ namespace colorrmaster
             this.trackBar3.TickStyle = TickStyle.None;
             //this.trackBar3.BackColor = Color.Blue;
 
-            this.button4.BackColor = Color.Black;
-            this.button5.BackColor = Color.Black;
+            this.backgroundButton.BackColor = Color.Black;
+            this.foregroundButton.BackColor = Color.Black;
 
             this.numericUpDown1.Increment = 5;
             this.numericUpDown1.Maximum = 30;
@@ -72,20 +72,23 @@ namespace colorrmaster
             this.numericUpDown1.Hexadecimal = false;
         }
 
-        private void set_tooltips()
+        private void SetTooltips(bool enable = false)
         {
-            this.toolTip1.SetToolTip(this.checkBox1, "Live preview with your selected colors");
-            this.toolTip1.SetToolTip(this.button1, "Red component randomizer");
-            this.toolTip1.SetToolTip(this.button2, "Green component randomizer");
-            this.toolTip1.SetToolTip(this.button3, "Blue component randomizer");
-            this.toolTip1.SetToolTip(this.button4, "Click to activate Background");
-            this.toolTip1.SetToolTip(this.button5, "Click to activate Foreground");
-            this.toolTip1.SetToolTip(this.label1, "Click to copy color code");
-            this.toolTip1.SetToolTip(this.label2, "Step down all colors");
-            this.toolTip1.SetToolTip(this.label3, "Step up all colors");
+            // based on if the checkbox status
+            //this.toolTip1.Enabled = true;
+
+            this.toolTip1.SetToolTip(this.checkBox1, enable ? "Live preview with your selected colors" : null);
+            this.toolTip1.SetToolTip(this.button1, enable ? "Red component randomizer" : null);
+            this.toolTip1.SetToolTip(this.button2, enable ? "Green component randomizer" : null);
+            this.toolTip1.SetToolTip(this.button3, enable ? "Blue component randomizer" : null);
+            this.toolTip1.SetToolTip(this.backgroundButton, enable ? "Click to activate Background" : null);
+            this.toolTip1.SetToolTip(this.foregroundButton, enable ? "Click to activate Foreground" : null);
+            this.toolTip1.SetToolTip(this.label1, enable ? "Click to copy color code" : null);
+            this.toolTip1.SetToolTip(this.label2, enable ? "Step down all colors" : null);
+            this.toolTip1.SetToolTip(this.label3, enable ? "Step up all colors" : null);
         }
 
-        private void adjust()
+        private void AdjustEverything()
         {
             this.button1.BackColor = Color.FromArgb(this.trackBar1.Value, 0, 0);
             this.button2.BackColor = Color.FromArgb(0, this.trackBar2.Value, 0);
@@ -101,14 +104,14 @@ namespace colorrmaster
             this.button3.Text = this.trackBar3.Value.ToString();
 
             this.target_active.BackColor = Color.FromArgb(this.trackBar1.Value, this.trackBar2.Value, this.trackBar3.Value);
-            this.target_active.ForeColor = Color.FromArgb(this.button4.BackColor.ToArgb() ^ 0XFFFFFF);
+            this.target_active.ForeColor = Color.FromArgb(this.foregroundButton.BackColor.ToArgb() ^ 0XFFFFFF);
             this.label1.Text = this.hex_colors();
-            
-            // optional
-            if(this.checkBox1.Checked)
+
+            // optional if block
+            if (this.checkBox1.Checked)
             {
-                this.label1.ForeColor = button5.BackColor;
-                this.label1.BackColor = button4.BackColor;
+                this.label1.ForeColor = foregroundButton.BackColor;
+                this.label1.BackColor = backgroundButton.BackColor;
             }
             else
             {
@@ -117,33 +120,14 @@ namespace colorrmaster
             }
         }
 
-        private string hex(int integer)
-        {
-            string value = string.Format("{0:X}", integer.ToString("X"));
-            if (value.Length == 1) value = "0" + value;
-
-            return value;
-        }
-
         private string hex_colors()
         {
-            string hexa = string.Format("#{0}{1}{2}", this.hex(this.trackBar1.Value), this.hex(this.trackBar2.Value), this.hex(this.trackBar3.Value));
+            string red = this.hexculator.hex(this.trackBar1.Value);
+            string green = this.hexculator.hex(this.trackBar2.Value);
+            string blue = this.hexculator.hex(this.trackBar3.Value);
+
+            string hexa = string.Format("#{0}{1}{2}", red, green, blue);
             return hexa;
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-            this.adjust();
-        }
-
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
-            this.adjust();
-        }
-
-        private void trackBar3_Scroll(object sender, EventArgs e)
-        {
-            this.adjust();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -151,51 +135,45 @@ namespace colorrmaster
             Clipboard.SetText(this.label1.Text);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void backgroundButton_Click(object sender, EventArgs e)
         {
-            this.target_active = this.button4;
-            this.update_sliders(this.button4.BackColor);
+            this.target_active = this.backgroundButton;
+            this.update_trackbars(this.backgroundButton.BackColor);
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void foregroundButton_Click(object sender, EventArgs e)
         {
-            this.target_active = this.button5;
-            this.update_sliders(this.button5.BackColor);
+            this.target_active = this.foregroundButton;
+            this.update_trackbars(this.foregroundButton.BackColor);
 
-            this.target_active.BackColor = this.button5.BackColor;
+            this.target_active.BackColor = this.foregroundButton.BackColor;
         }
 
-        private void update_sliders(Color color)
+        private void update_trackbars(Color color)
         {
             this.trackBar1.Value = color.R;
             this.trackBar2.Value = color.G;
             this.trackBar3.Value = color.B;
 
-            this.adjust();
+            this.AdjustEverything();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.trackBar1.Value = this.get_random_color_value();
-            this.adjust();
+            this.trackBar1.Value = this.randomizer.GetColorComponent();
+            this.AdjustEverything();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.trackBar2.Value = this.get_random_color_value();
-            this.adjust();
+            this.trackBar2.Value = this.randomizer.GetColorComponent();
+            this.AdjustEverything();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.trackBar3.Value = this.get_random_color_value();
-            this.adjust();
-        }
-
-        private int get_random_color_value()
-        {
-            int value = new Random().Next(0, 255);
-            return value;
+            this.trackBar3.Value = this.randomizer.GetColorComponent();
+            this.AdjustEverything();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -218,7 +196,6 @@ namespace colorrmaster
             if (blue <= this.trackBar2.Minimum) blue = this.trackBar2.Minimum;
             if (green <= this.trackBar3.Minimum) green = this.trackBar3.Minimum;
 
-
             if (red >= this.trackBar1.Maximum) red = this.trackBar1.Maximum;
             if (blue >= this.trackBar2.Maximum) blue = this.trackBar2.Maximum;
             if (green >= this.trackBar3.Maximum) green = this.trackBar3.Maximum;
@@ -227,13 +204,13 @@ namespace colorrmaster
             this.trackBar2.Value = green;
             this.trackBar3.Value = blue;
 
-            this.adjust();
+            this.AdjustEverything();
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-           if(this.numericUpDown1.Value >= this.numericUpDown1.Maximum) this.numericUpDown1.Value = this.numericUpDown1.Maximum;
-           if(this.numericUpDown1.Value <= this.numericUpDown1.Minimum) this.numericUpDown1.Value = this.numericUpDown1.Minimum;
+            if (this.numericUpDown1.Value >= this.numericUpDown1.Maximum) this.numericUpDown1.Value = this.numericUpDown1.Maximum;
+            if (this.numericUpDown1.Value <= this.numericUpDown1.Minimum) this.numericUpDown1.Value = this.numericUpDown1.Minimum;
         }
 
         private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e)
@@ -244,32 +221,24 @@ namespace colorrmaster
 
         private string bgcolor()
         {
-            string hexa = string.Format("#{0}{1}{2}", this.hex(this.button4.BackColor.R), this.hex(this.button4.BackColor.G), this.hex(this.button4.BackColor.B));
+            string red = this.hexculator.hex(this.backgroundButton.BackColor.R);
+            string green = this.hexculator.hex(this.backgroundButton.BackColor.G);
+            string blue = this.hexculator.hex(this.backgroundButton.BackColor.B);
+
+            string hexa = string.Format("#{0}{1}{2}", red, green, blue);
             return hexa;
         }
 
         private void projectSourceCodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.help();
+            this.help(Configurations.project_url);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            // randomize colors
-            int bk_red = this.get_random_color_value();
-            int bk_green = this.get_random_color_value();
-            int bk_blue = this.get_random_color_value();
-
-            this.trackBar1.Value = bk_red;
-            this.trackBar2.Value = bk_green;
-            this.trackBar3.Value = bk_blue;
-
-            // inactive one; if background is active, apply to foreground
-            //int fc_red= this.get_random_color_value();
-            //int fc_green = this.get_random_color_value();
-            //int fc_blue = this.get_random_color_value();
-
-            this.adjust();
+            // picks the currently active element: Forground or Background button.
+            this.randomize_trackbar();
+            this.AdjustEverything();
         }
 
         private void copyColorCodeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -284,31 +253,142 @@ namespace colorrmaster
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            this.adjust();
+            this.AdjustEverything();
         }
 
         private void requestAFeatureToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.help();
+            this.help(Configurations.project_issues_new);
         }
 
-        private void help()
+        private void help(string url)
         {
+            this.opener.StartInfo.UseShellExecute = true;
+            this.opener.StartInfo.FileName = url;
+
             try
             {
-                Process opener = new Process();
-                opener.StartInfo.UseShellExecute = true;
-                opener.StartInfo.FileName = Configurations.project_url;
                 opener.Start();
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message);
             }
+        }
+
+        private void randomize_trackbar()
+        {
+            // randomize colors
+            int red = this.randomizer.GetColorComponent();
+            int green = this.randomizer.GetColorComponent();
+            int blue = this.randomizer.GetColorComponent();
+
+            this.trackBar1.Value = red;
+            this.trackBar2.Value = green;
+            this.trackBar3.Value = blue;
+        }
+
+        private void forgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.target_active = this.foregroundButton;
+            this.randomize_trackbar();
+            this.AdjustEverything();
+        }
+
+        private void backgroundColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.target_active = this.backgroundButton;
+            this.randomize_trackbar();
+            this.AdjustEverything();
+        }
+
+        private void bothToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // loops to bring some animated effects
+            int frames = animateToolStripMenuItem.Checked ? 10 : 1;
+            for (int i = 0; i < frames; ++i)
+            {
+                this.target_active = this.backgroundButton;
+                this.randomize_trackbar();
+                this.AdjustEverything();
+
+                this.target_active = this.foregroundButton;
+                this.randomize_trackbar();
+                this.AdjustEverything();
+
+                this.Refresh(); // without this, UI is static
+                Thread.Sleep(50);
+            }
+        }
+
+        private void animateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            animateToolStripMenuItem.Checked = !animateToolStripMenuItem.Checked;
+            //this.animate = animateToolStripMenuItem.Checked;
+        }
+
+        private void enableToolTipsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.enableToolTipsToolStripMenuItem.Checked = !enableToolTipsToolStripMenuItem.Checked;
+            this.SetTooltips(this.enableToolTipsToolStripMenuItem.Checked);
         }
 
         private void anytizerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string text = "GitHub user handle: @anytizer.";
+            string title = "Developer Information";
 
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            //int delta = this.trackbar1_last_red - trackBar1.Value;
+            //this.limit(this.trackBar1, delta);
+
+            //this.trackbar1_last_red = trackBar1.Value;
+            //if (this.track_all)
+            //{
+            //    this.track_others_also(delta);
+            //}
+            //else
+            //{
+            //    this.track_single(sender, delta);
+            //}
+
+            this.AdjustEverything();
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            //int delta = this.trackbar3_last_green - trackBar2.Value;
+            //this.trackbar3_last_green = trackBar1.Value;
+            //if (this.track_all)
+            //{
+            //    this.track_others_also(delta);
+            //}
+            //else
+            //{
+            //    this.track_single(sender, delta);
+            //}
+
+            this.AdjustEverything();
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            //int delta = this.trackbar2_last_blue - trackBar1.Value;
+            //this.trackbar2_last_blue = trackBar1.Value;
+            //if (this.track_all)
+            //{
+            //    this.track_others_also(delta);
+            //}
+            //else
+            //{
+            //    this.track_single(sender, delta);
+            //}
+
+            this.AdjustEverything();
         }
     }
 }
